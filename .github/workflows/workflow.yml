@@ -53,8 +53,8 @@ jobs:
           CIBW_ARCHS_WINDOWS: AMD64 x86
           CIBW_BUILD: ${{ matrix.ci-build-regex }}
           CIBW_BEFORE_BUILD: python -m pip install --force-reinstall --no-cache-dir numpy==${{ matrix.numpy-version }}
-          CIBW_MANYLINUX_X86_64_IMAGE: quay.io/pypa/manylinux2010_x86_64
-          CIBW_MANYLINUX_I686_IMAGE: quay.io/pypa/manylinux2010_i686
+          CIBW_MANYLINUX_X86_64_IMAGE: quay.io/pypa/manylinux2014_x86_64
+          CIBW_MANYLINUX_I686_IMAGE: quay.io/pypa/manylinux2014_i686
 
       - uses: actions/upload-artifact@v2
         with:

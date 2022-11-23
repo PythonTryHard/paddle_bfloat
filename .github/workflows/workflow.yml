@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-18.04]
-        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10']
+        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10', '3.11']
         linux-archs: ['x86_64 i686']
         include:
           - python-version: '3.6'
@@ -26,6 +26,9 @@ jobs:
           - python-version: '3.10'
             numpy-version: 1.22
             ci-build-regex: cp310-*
+          - python-version: '3.11'
+            numpy-version: 1.23
+            ci-build-regex: cp311-*
         exclude:
           - os: macos-10.15
             linux-archs: 'ppc64le'

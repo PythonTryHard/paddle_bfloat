@@ -15,7 +15,8 @@ jobs:
         include:
           - python-version: '3.11'
             numpy-version: 1.23.5
-            ci-build-regex: cp311-(?!musl)
+            ci-build-glob: cp311-*
+            ci-skip-glob: cp311-musl*
 
     steps:
       - uses: actions/checkout@v3
@@ -44,7 +45,8 @@ jobs:
           CIBW_ARCHS_MACOS: ${{ matrix.macos-archs}}
           CIBW_ARCHS_LINUX: ${{ matrix.linux-archs }}
           CIBW_ARCHS_WINDOWS: ${{ matrix.windows-archs}}
-          CIBW_BUILD: ${{ matrix.ci-build-regex }}
+          CIBW_BUILD: ${{ matrix.ci-build-glob }}
+          CIBW_SKIP: ${{ matrix.ci-skip-glob }}
           CIBW_BEFORE_BUILD: python -m pip install --force-reinstall --no-cache-dir numpy==${{ matrix.numpy-version }}
           CIBW_MANYLINUX_X86_64_IMAGE: quay.io/pypa/manylinux_2_28_x86_64
           CIBW_MANYLINUX_AARCH64_IMAGE: quay.io/pypa/manylinux_2_28_aarch64

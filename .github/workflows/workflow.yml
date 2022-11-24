@@ -7,9 +7,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-22.04 windows-2022 macos-11]
+        os: [ubuntu-22.04, windows-2022, macos-11]
         python-version: ['3.11']
-        linux-archs: ['x86_64 arm64']
+        linux-archs: ['x86_64 aarch64']
         include:
           - python-version: '3.11'
             numpy-version: 1.23.5
@@ -45,7 +45,6 @@ jobs:
           CIBW_BUILD: ${{ matrix.ci-build-regex }}
           CIBW_BEFORE_BUILD: python -m pip install --force-reinstall --no-cache-dir numpy==${{ matrix.numpy-version }}
           CIBW_MANYLINUX_X86_64_IMAGE: quay.io/pypa/manylinux2014_x86_64
-          CIBW_MANYLINUX_I686_IMAGE: quay.io/pypa/manylinux2014_i686
 
       - uses: actions/upload-artifact@v3
         with:

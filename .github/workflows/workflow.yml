@@ -10,10 +10,12 @@ jobs:
         os: [ubuntu-22.04, windows-2022, macos-11]
         python-version: ['3.11']
         linux-archs: ['x86_64 aarch64']
+        windows-archs: ['AMD64 x86 ARM64']
+        macos-archs: ['x86_64 arm64 universal2']
         include:
           - python-version: '3.11'
             numpy-version: 1.23.5
-            ci-build-regex: cp311-*
+            ci-build-regex: cp311-(?!musl)
 
     steps:
       - uses: actions/checkout@v3
@@ -39,9 +41,9 @@ jobs:
       - name: Build wheel
         run: python -m cibuildwheel --output-dir dist/
         env:
-          CIBW_ARCHS_MACOS: all
+          CIBW_ARCHS_MACOS: ${{ matrix.macos-archs}}
           CIBW_ARCHS_LINUX: ${{ matrix.linux-archs }}
-          CIBW_ARCHS_WINDOWS: AMD64 x86
+          CIBW_ARCHS_WINDOWS: ${{ matrix.windows-archs}}
           CIBW_BUILD: ${{ matrix.ci-build-regex }}
           CIBW_BEFORE_BUILD: python -m pip install --force-reinstall --no-cache-dir numpy==${{ matrix.numpy-version }}
           CIBW_MANYLINUX_X86_64_IMAGE: quay.io/pypa/manylinux_2_28_x86_64

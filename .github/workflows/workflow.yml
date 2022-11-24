@@ -9,20 +9,11 @@ jobs:
       matrix:
         os: [ubuntu-22.04 windows-2022 macos-11]
         python-version: ['3.11']
-        linux-archs: ['x86_64 i686']
+        linux-archs: ['x86_64', 'arm64']
         include:
           - python-version: '3.11'
             numpy-version: 1.23.5
             ci-build-regex: cp311-*
-        exclude:
-          - os: macos-11
-            linux-archs: 'ppc64le'
-          - os: macos-11
-            linux-archs: 's390x'
-          - os: windows-2022
-            linux-archs: 'ppc64le'
-          - os: windows-2022
-            linux-archs: 's390x'
             
     steps:
       - uses: actions/checkout@v3

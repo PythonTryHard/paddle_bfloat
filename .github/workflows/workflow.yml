@@ -9,12 +9,12 @@ jobs:
       matrix:
         os: [ubuntu-22.04 windows-2022 macos-11]
         python-version: ['3.11']
-        linux-archs: ['x86_64', 'arm64']
+        linux-archs: ['x86_64 arm64']
         include:
           - python-version: '3.11'
             numpy-version: 1.23.5
             ci-build-regex: cp311-*
-            
+
     steps:
       - uses: actions/checkout@v3
 

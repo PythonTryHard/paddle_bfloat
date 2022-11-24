@@ -7,21 +7,21 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-22.04]
+        os: [ubuntu-22.04 windows-2022 macos-11]
         python-version: ['3.11']
         linux-archs: ['x86_64 i686']
         include:
           - python-version: '3.11'
-            numpy-version: 1.23
+            numpy-version: 1.23.5
             ci-build-regex: cp311-*
         exclude:
-          - os: macos-10.15
+          - os: macos-11
             linux-archs: 'ppc64le'
-          - os: macos-10.15
+          - os: macos-11
             linux-archs: 's390x'
-          - os: windows-2019
+          - os: windows-2022
             linux-archs: 'ppc64le'
-          - os: windows-2019
+          - os: windows-2022
             linux-archs: 's390x'
             
     steps:
@@ -56,6 +56,6 @@ jobs:
           CIBW_MANYLINUX_X86_64_IMAGE: quay.io/pypa/manylinux2014_x86_64
           CIBW_MANYLINUX_I686_IMAGE: quay.io/pypa/manylinux2014_i686
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           path: ./dist/*.whl
